@@ -29,6 +29,32 @@ app.get('/about', (req,res) => {
 //   res.send('about');
 // });
 
+class Screen {  
+  //var width;
+  //var height;
+  
+  constructor(witdh, height){
+    this.width = width;
+    this.height = height;
+  }
+  
+  diagonal() {
+    return Math.sqrt(Math.pow(this.width, 2) + Math.pow(this.height, 2));
+  }
+  
+  dimensions(definition) {
+    var dimensions = definition.split('x')
+    this.width = parseInt(dimensions[0]);
+    this.height = parseInt(dimensions[1]);
+  }
+  
+}
+
+var screen = new Screen(0, 0);
+screen.dimensions = '500x300';
+screen.width = 400;
+console.log(screen.diagonal);
+
 
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
