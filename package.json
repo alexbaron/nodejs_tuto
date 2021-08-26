@@ -1,0 +1,21 @@
+{
+ "name": "docker_web_app",
+ "version": "1.0.0",
+ "description": "nodejs on docker",
+ "main": "node/server.js",
+ "author": "alex baron",
+ "license": "MIT",
+ "scripts": {
+  "start": "node server.js",
+  "start.dev": "nodemon"
+ },
+ "dependencies": {
+  "express": "^4.16.2",
+  "express-react-views": "^0.11.0",
+  "react": "^17.0.2",
+  "react-dom": "^17.0.2"
+ },
+ "devDependencies": {
+  "nodemon": "^2.0.12"
+ }
+}
