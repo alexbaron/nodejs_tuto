@@ -3,7 +3,12 @@ FROM node:14
 WORKDIR /usr/src/app
 
 RUN mkdir -p /usr/src/app
-COPY package*.json /usr/src/app/
+COPY ./src/package*.json /usr/src/app/
+
+RUN DEBIAN_FRONTEND=noninteractive apt-get update -q \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -qq -y \
+    vim \
+    && rm -rf /var/lib/apt
 
 RUN npm install
 

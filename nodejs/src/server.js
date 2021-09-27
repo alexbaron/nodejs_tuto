@@ -3,11 +3,25 @@
 const express = require("express");
 const morgan = require("morgan");
 // var React = require("react");
-var router = express.Router();
+var router = require("./router");
+var mongoose = require("mongoose");
 
 // Constants
 const PORT = 8080;
 const HOST = "0.0.0.0";
+
+console.log("start");
+mongoose
+  .connect("mongodb://alex:tuto1234@mongo:27017/biblio", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("MongoDB Connected"))
+  .catch((err) => {
+    console.log("================================");
+    console.log(err);
+    console.log("================================");
+  });
 
 // server
 const server = express();
@@ -16,34 +30,10 @@ const server = express();
 // server.set("view engine", "jsx");
 // server.engine("jsx", require("express-react-views").createEngine());
 
+server.use(express.static("public"));
+server.use(express.static(__dirname + "/public"));
 server.use(morgan("dev"));
-
-//routing
-server.get("/", (req, res) => {
-  res.send("Hello World 2 " + req.path);
-  console.log(req.query);
-  console.log("call from client");
-});
-
-server.post("/post", (req, res) => {
-  res.send("post req");
-});
-server.get("/get", (req, res) => {
-  res.send("get req");
-});
-
-server.use((req, res, suite) => {
-  const error = new Error("404 page not found");
-  error.status = 404;
-  suite(error);
-});
-
-server.use((error, req, res) => {
-  res.status(error.status || 500);
-  res.end(error.message);
-});
+server.use("/", router);
 
 server.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
-
-module.exports = router;
